@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chat App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link href="css/bootstrap-4.3.1.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body bgcolor="#202020">
+    
+        <div class="row">
+            <div class="col-md-4 pr-0 d-none d-md-block" id="side-1">
+                <div class="card gray">
+            <button class="start-friends" id="lnk" onclick="PopulateUserList()" data-toggle="modal" data-target="#modalUserList">+</button>
+
+                    <div class="card-header grayl">
+                        <div class="row grayl">
+                            
+                            <div class="col-2 col-sm-2 col-md-2">
+                               <a href="https://myaccount.google.com/u/0/personal-info?hl=en"></a> <img id="imgProfile" src="images/pp.png" class="rounded-circle profile-pic" /></a>
+                                
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6">
+                                <p id="imgname"></p>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2">
+                                <a href="#" style="float:right;" data-toggle="modal" data-target="#modalNotificationList" onclick="PopulateNotifications()">
+                                    <i class="fas fa-bell icon">
+                                    </i>
+                                    <span id="notification">0</span>
+                                </a>
+
+                                <div class="modal fade" id="modalNotificationList">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    All Users Requests
+                                                    <span class="close" data-dismiss="modal" style="cursor:pointer;">&times;</span>
+                                                </div>
+                                                <ul class="list-group list-group-flush" id="lstNotification"></ul>
+                                                <p style="color: #889988;">BakBak is facing some technical issues
+                                                so please co-oprate😘😊😘.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2">
+                                <div class="dropleft">
+                                    <span class="dropdown-toggle" data-toggle="dropdown" style="float:right">
+                                        <i class="fas fa-ellipsis-v icon" style="cursor:pointer;" ></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" id="lnk" onclick="PopulateUserList()" data-toggle="modal" data-target="#modalUserList">All Users</a>
+                                        <a href="#" class="dropdown-item" id="lnkNewChat" onclick="PopulateFriendList()" data-toggle="modal" data-target="#modalFriendList" style="display: none;">New Chat</a>
+                                        <a href="#" id="lnkSignIn" onclick="signIn()" class="dropdown-item">Sign In</a>
+                                        
+                                        <a href="index.html#" id="lnkSignOut" onclick="signOut()" class="dropdown-item" style="display:none;">Sign Out</a>
+                                    </div>
+
+                                    <div class="modal fade" id="modalFriendList">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        Friend List
+                                                        <span class="close" data-dismiss="modal" style="cursor:pointer;">&times;</span>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush" id="lstFriend"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade gray" id="modalUserList">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card gray">
+                                                    <div class="card-header grayl">
+                                                        All Users list
+                                                        <span class="close" data-dismiss="modal" style="cursor:pointer;">&times;</span>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush" id="lstUsers"></ul>
+                                                    <p style="color: #889988;">BakBak is facing some technical issues
+                                                        so please co-oprate😘😊😘.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush" class="lstChat" id="lstChat">
+                        </ul>
+                </div>
+            </div>
+            <div class="col-md-8 pl-0" id="side-2">
+                <div id="chatPanel" class="card" style="display:none;">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-1 col-sm-1 col-md-1 col-lg-1 d-md-none">
+                                <i class="fas fa-arrow-left d-md-none style="cursor:pointer" onclick="showChatList()"></i>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-1">
+                                <img src="images/pp.png" id="imgChat" class="rounded-circle profile-pic" />
+                            </div>
+                            <div class="col-5 col-sm-5 col-md-5 col-lg-7">
+                                <div class="name" id="divChatName">Any Name</div>
+                                <div class="under-name" id="typing">start your chat😊</div>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-4 col-lg-3 icon">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" id="messages">
+                        Loding messages...
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="row" style="position:relative;">
+                            <div class="col-md-12" id="emoji" style="display:none;">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#smiley" role="tab" aria-controls="home" aria-selected="true">Smiley</a>
+                                    </li>
+                                    
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="smiley" role="tabpanel" aria-labelledby="home-tab">
+
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 col-md-1 emj" style="cursor:pointer;">
+                                <i class="far fa-grin x_size set" onclick="showEmojiPanel()"></i>
+                            </div>
+                            <div class="box">
+                                <input id="txtMessage" type="text" onfocus="hideEmojiPanel()" placeholder="Type here" class="inputmsg" />
+                                
+                            </div>
+                            <div class="col-3 gal"><i class="fas fa-paperclip ml-4 x_size set" onclick="ChooseImage()"></i></div>
+                            <div class="col-1 col-md-1">
+                               
+                                <i style="cursor:pointer;" id="audio" onclick="record(this)" class="fas fa-microphone x_size set"></i>
+                                
+                                <input type="file" id="imageFile" onchange="SendImage(this)" accept="image/*" style="display: none;">
+                                
+                                <i id="send" onclick="sendMessage()" class="fa fa-paper-plane set" style="display:none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divStart" style="background: #202020; height: 900px;" class="text-center">
+                    <img src="LogoMakr_6Xzg9Y.png" >
+                    <a href="#" onclick="showChatList()" class="d-md-none"> <button class="btn btn-primary" id="outs" style="display:none; position: relative; left: 40%;" disabled="disabled">Start Chat</button></a><br><br>
+                    <button onclick="signIn()" class="btn btn-primary" id="signs">Sign In</button>
+                    <p style="color: #889988; display: none;" id="outstxt">To make friends tap on three dots at top-right corner.
+                        <br> Then click on all user and <br> select the user u want 2 Talk 😊.
+                    <br><input type="checkbox" onclick="openouts()">-Have u read instruction.</p>
+                    <p style="color:#889988;" id="signstxt">Wait for Atleast 3 seconds if u have signed in. <br>
+                    to change the button. <br>if not signed in Tap on SignIn </p>
+                    <button onclick="signOut()" class="btn btn-primary" id="outs" style="display: none;">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementsByClassName("lstChat");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        </script>
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/popper-1.14.7.min.js"></script>
+    <script src="Scripts/bootstrap-4.3.1.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase.js"></script>
+    <script src="Scripts/firebase-messaging.js"></script>
+    <script src="Scripts/firebase.init.js"></script>
+    <script src="Scripts/chat.js"></script>
+</body>
+</html>
